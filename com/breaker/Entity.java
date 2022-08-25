@@ -9,7 +9,7 @@ import com.breaker.input.InputHandler;
 
 public abstract class Entity {
 
-		protected static Game game = Game.game;
+		protected Game game;
 		protected Color color;
 		protected Rectangle bounds;
 		protected Random random = new Random();
@@ -62,7 +62,7 @@ public abstract class Entity {
 			this.dy = dy;
 		}
 		public void init(Game game) { 
-				Entity.game = game;
+				this.game = game;
 		}
 		
 		

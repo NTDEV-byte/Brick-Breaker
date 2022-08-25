@@ -1,12 +1,14 @@
 package com.breaker.powers;
 
+import com.breaker.Game;
+
 import java.awt.Color;
 import java.awt.Rectangle;
 
 public class Chance extends Power{
 
-	public Chance(Rectangle rectangle) {
-		super(rectangle, Color.pink);
+	public Chance(Game game,Rectangle rectangle) {
+		super(game,rectangle, Color.pink);
 	}
 
 	@Override

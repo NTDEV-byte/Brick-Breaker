@@ -11,13 +11,11 @@ public class Paddle extends Entity{
 		
 		private int lives;
 		
-		
-			public Paddle(Rectangle bounds , Color c) { 
+			public Paddle(Rectangle bounds , Color c) {
 				  this.bounds = bounds;
 				  this.color = c;
 				  this.lives = 3;
 			}
-	
 
 			@Override
 		public void update() {

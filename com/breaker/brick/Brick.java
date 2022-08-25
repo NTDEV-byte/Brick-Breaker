@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 
 import com.breaker.Entity;
+import com.breaker.Game;
 
 public class Brick extends Entity{
 	
@@ -12,18 +13,20 @@ public class Brick extends Entity{
 		private int resistance = 2;
 		private boolean gifted;
 
-		public Brick(Rectangle bounds,Color c) { 
+		public Brick(Game game,Rectangle bounds, Color c) {
 					this.bounds = bounds;
 					this.color = c;
 					this.gifted = uneChanceSurDeux();
 					this.resistance = random.nextInt(MAX_RESISTANCE) + 1;
+					this.game = game;
 			}
 			
-			public Brick(Rectangle bounds) { 
+			public Brick(Game game,Rectangle bounds) {
 				this.bounds = bounds;
 				this.color = new Color(random.nextInt(255),random.nextInt(255),random.nextInt(255));
 				resistance = random.nextInt(MAX_RESISTANCE) + 1;
 				this.gifted = uneChanceSurDeux();
+				this.game = game;
 			}
 			
 

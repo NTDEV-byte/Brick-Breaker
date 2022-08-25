@@ -9,8 +9,8 @@ import com.breaker.Game;
 
 public class Damage extends Power{
 
-	public Damage(Rectangle rectangle) {
-		super(rectangle, Color.magenta);
+	public Damage(Game game,Rectangle rectangle) {
+		super(game,rectangle, Color.magenta);
 	}
 
 	@Override

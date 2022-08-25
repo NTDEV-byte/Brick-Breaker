@@ -11,20 +11,10 @@ import com.breaker.paddle.Paddle;
 
 public abstract class Power extends Entity{
 	
-	/***
-	 * Balls   white
-	 * Chance  pink
-	 * Damage  magenta
-	 * Grow    green
-	 * Decrease red
-	 * Gun yellow
-	 * 
-	 * 
-	 */
 
-	public static final int PWIDTH = 5;
-	public static final int PHEIGHT = 5;
-	
+		public static final int PWIDTH = 5;
+		public static final int PHEIGHT = 5;
+
 	
 		public static final int BALLS = 0;
 		public static final int CHANCE = 1;
@@ -36,18 +26,18 @@ public abstract class Power extends Entity{
 		private static final int POWERS = 6;
 		
 		protected boolean catched;
-		protected Paddle pad = Game.game.getPad();
-		protected Ball ball = Game.game.getBall();
+		protected Paddle pad;
+		protected Ball ball;
 		
 		
-		public Power(Rectangle rectangle,Color color) {
+		public Power(Game game,Rectangle rectangle,Color color) {
 			 	this.bounds = rectangle;
 			 	this.color = color;
+			    this.game = game;
+			    this.pad = game.getPad();
+			    this.ball = game.getBall();
 		}
 		
-		public Power() {
-			
-		}
 
 		public void update() {
 		  bounds.y+=1;
@@ -76,23 +66,23 @@ public abstract class Power extends Entity{
 		this.catched = catched;
 	}
 	
-	public static Power generateRandomPower(int x,int y) {
+	public static Power generateRandomPower(Game game,int x,int y) {
 		 int power = (int)(Math.random() * POWERS);
 		 switch(power) { 
 		 case BALLS:
-			  return new Balls(new Rectangle(x,y,PWIDTH,PHEIGHT));
+			  return new Balls(game,new Rectangle(x,y,PWIDTH,PHEIGHT));
 		 case CHANCE:
-			 return new Chance(new Rectangle(x,y,PWIDTH,PHEIGHT));
+			 return new Chance(game,new Rectangle(x,y,PWIDTH,PHEIGHT));
 		 case DAMAGE:
-			 return new Damage(new Rectangle(x,y,PWIDTH,PHEIGHT));
+			 return new Damage(game,new Rectangle(x,y,PWIDTH,PHEIGHT));
 		 case GROW:
-			 return new Grow(new Rectangle(x,y,PWIDTH,PHEIGHT));
+			 return new Grow(game,new Rectangle(x,y,PWIDTH,PHEIGHT));
 		 case DECREASE:
-			 return new Decrease(new Rectangle(x,y,PWIDTH,PHEIGHT));
+			 return new Decrease(game,new Rectangle(x,y,PWIDTH,PHEIGHT));
 		 case GUN:
-			 return new Gun();
+			 return new Gun(game);
 		 }
-		 return new Grow(new Rectangle(x,y,PWIDTH,PHEIGHT));
+		 return new Grow(game,new Rectangle(x,y,PWIDTH,PHEIGHT));
 	}
 	
 	

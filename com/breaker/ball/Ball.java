@@ -18,16 +18,17 @@ public class Ball extends Entity{
 		private BALL_DIRECTION direction;
 		private int damage;
 		
-		public Ball(Rectangle rectangle , Color color) { 
+		public Ball(Game game,Rectangle rectangle , Color color) {
 			this.bounds = rectangle;
 			this.color = color;
 			this.direction = BALL_DIRECTION.NORDEST;
 			this.damage = 1;
+			this.game = game;
 		}
 
 		@Override
 		public void update() {
-			mouvement();
+			movement();
 			collision();
 			collisionWithPad();
 			collisionWithBricks();
@@ -62,7 +63,7 @@ public class Ball extends Entity{
 			}
 		}
 		
-		private void mouvement() { 
+		private void movement() {
 			if(direction == BALL_DIRECTION.NORD) {
 				   bounds.y-=1;
 			}

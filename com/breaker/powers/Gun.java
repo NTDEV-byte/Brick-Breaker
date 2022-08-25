@@ -13,23 +13,18 @@ import com.breaker.paddle.Paddle;
 public class Gun extends Power{
 	
 	private InputHandler input = Game.keys;
-	private static Paddle pad = game.getPad();
-	private static int offset = pad.getBounds().width / 2;
 	private static final double RATE = 50;
 	
 	private List<Bullet> bullets;
 	private boolean activated = true;
-	private static Rectangle gun = new Rectangle(pad.getBounds().x + offset,pad.getBounds().y,2,2);
 	private double start = System.currentTimeMillis();
 	private boolean canFire = true;
-	
-	
-	public Gun() {
-		super(gun, Color.yellow);
+
+	public Gun(Game game) {
+		super(game,new Rectangle(0,0,2,2), Color.yellow);
 		bullets = new ArrayList<Bullet>();
 	}
-	
-	
+
 	public void render(Graphics g) { 
 		if(activated) { 
 			for(Bullet b : bullets) { 
@@ -41,13 +36,13 @@ public class Gun extends Power{
 	public void update() { 
 		if(activated) {
 			if(input.space && canFire) { 
-				bullets.add(new Bullet(gun.x,gun.y));
+				bullets.add(new Bullet(bounds.x,bounds.y));
 			}
 			for(Bullet b : bullets) { 
 				b.update();
 			}
 		}
-		gun.setLocation(pad.getBounds().x + pad.getBounds().width / 2, pad.getBounds().y);
+		bounds.setLocation(pad.getBounds().x + pad.getBounds().width / 2, pad.getBounds().y);
 		removeDestroyedBullets();
 		if(System.currentTimeMillis()- start >= RATE) {
 			 canFire = true;

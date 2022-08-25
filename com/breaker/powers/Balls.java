@@ -21,8 +21,8 @@ public class Balls extends Power{
 	private boolean launched;
 	
 	
-	public Balls(Rectangle rectangle) {
-		super(rectangle, Color.white);
+	public Balls(Game game,Rectangle rectangle) {
+		super(game,rectangle, Color.white);
 		balls = new ArrayList<Ball>();
 		generate();
 		spawn = System.currentTimeMillis();
@@ -30,7 +30,7 @@ public class Balls extends Power{
 	
 	private void generate() { 
 		for(int i=0;i<GEN;i++) {
-			Ball b = new Ball(new Rectangle(random.nextInt(Game.WIDTH),random.nextInt(Game.HEIGHT),Ball.WIDTH_BALL / 2,Ball.HEIGHT_BALL / 2),new Color(random.nextInt(255),random.nextInt(255),random.nextInt(255)));
+			Ball b = new Ball(game,new Rectangle(random.nextInt(Game.WIDTH),random.nextInt(Game.HEIGHT),Ball.WIDTH_BALL / 2,Ball.HEIGHT_BALL / 2),new Color(random.nextInt(255),random.nextInt(255),random.nextInt(255)));
 			b.setDirection(Ball.BALL_DIRECTION.values()[random.nextInt(Ball.BALL_DIRECTION.values().length)]);
 			balls.add(b);
 		}

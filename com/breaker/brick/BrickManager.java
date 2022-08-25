@@ -14,14 +14,14 @@ import com.breaker.powers.Power;
 
 public class BrickManager{
 	
-		private Game game = Game.game;
+		private Game game = null;
 		private Brick bricks[][];
 		private List<Power> powers = new ArrayList<Power>();
 		private int perL,perC;
 		private int w,h;
 		private int spx,spy;
 		
-					public BrickManager(int perL,int perC,int w,int h,int spx,int spy) { 
+					public BrickManager(Game game,int perL,int perC,int w,int h,int spx,int spy) {
 							bricks = new Brick[perL][perC];
 							this.perL = perL;
 							this.perC = perC;
@@ -29,7 +29,10 @@ public class BrickManager{
 							this.h = h;
 							this.spx = (spx <= 1) ? 2 : spx;
 							this.spy = (spy <= 1) ? 2 : spy;
-							powers.add(new Gun());
+							this.game = game;
+							Gun g = new Gun(game);
+							g.init(game);
+							powers.add(g);
 							generateHorizontal();
 					}
 					
@@ -59,7 +62,7 @@ public class BrickManager{
 								  if(bricks[i][j].hasBeenDestroyed()) { 
 									  if(bricks[i][j].isGifted()) {
 										    Brick current = bricks[i][j];
-										    Power p = Power.generateRandomPower(current.getBounds().x, current.getBounds().y);
+										    Power p = Power.generateRandomPower(game,current.getBounds().x, current.getBounds().y);
 										   	powers.add(p);
 										   	current.setGifted(false);
 									  }
@@ -149,14 +152,14 @@ public class BrickManager{
 							}
 						}
 					}
-					/**méthodes de Generations  **/
+					/**mï¿½thodes de Generations  **/
 					public void generateHorizontal() {
 						int tempX = 10;
 						int tempY = 10;
 						
 						  for(int i=0;i<bricks.length;i++) {
 							   for(int j=0;j<bricks[i].length;j++) {
-								     bricks[i][j] = new Brick(new Rectangle(j * w + tempX,i * h + tempY,w,h));
+								     bricks[i][j] = new Brick(game,new Rectangle(j * w + tempX,i * h + tempY,w,h));
 								     tempX+=spx;
 							   }
 							   tempY+=spy;

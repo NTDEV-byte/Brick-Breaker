@@ -15,27 +15,16 @@ import com.breaker.paddle.Paddle;
 
 public class Game extends JPanel{
 	
-			/**
-			 * @author nassi AK ZIONCitizen
-			 * Power System X 
-			 * press space bar to activate fire when gun is available X  
-			 * level manager X  
-			 * transitions 
-			 * advanced BrickGeneration
-			 * sound
-			 * Menu
-			 * 
-			 */
-	private static final long serialVersionUID = 1L;
+
+			private static final long serialVersionUID = 1L;
 			public static final int WIDTH = 800;
 			public static final int HEIGHT = 600;
-			public static Game game;
+			public static InputHandler keys = new InputHandler();
 			private JFrame window;
 			private Paddle pad;
 			private Ball ball;
 			private LevelManager manager;
-			public static InputHandler keys = new InputHandler();
-			
+
 					public Game() { 
 						window = new JFrame("Casse-Brique");
 						window.setVisible(true);
@@ -48,22 +37,26 @@ public class Game extends JPanel{
 						window.addMouseListener(keys);
 						window.add(this);
 						window.pack();
-						game = this;
 					}
 					
 					private void initGame() { 
 						pad = new Paddle(new Rectangle(150,600-20,80,10),Color.red);
-						pad.init(game);
-						ball = new Ball(new Rectangle(200,200,Ball.WIDTH_BALL,Ball.HEIGHT_BALL),Color.cyan);
-						ball.init(game);
-						manager = new LevelManager();
-						//generator = new BrickManager(;
+						ball = new Ball(this,new Rectangle(200,200,Ball.WIDTH_BALL,Ball.HEIGHT_BALL),Color.cyan);
+						pad.init(this);
+						ball.init(this);
+						manager = new LevelManager(this);
 					}
-				
+
+
+					private boolean isReady(){
+						return pad != null && ball != null && manager != null;
+					}
 				public void paint(Graphics g) {
-					draw(g);
-					update();
-					repaint();
+						if(isReady()){
+							draw(g);
+							update();
+						}
+					 repaint();
 					try {
 						Thread.sleep(1);
 					} catch (InterruptedException e) {
@@ -111,10 +104,4 @@ public class Game extends JPanel{
 					this.manager = manager;
 				}
 
-			/*	public BrickManager getGenerator() {
-					return generator;
-				}
-				public void setGenerator(BrickManager generator) {
-					this.generator = generator;
-				}*/
 }
